@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+  <!-- Icons + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    html {
+      scroll-behavior: smooth; /* Smooth scroll for better UX */
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #f0f0f0;
+    }
+   .section {
+      padding: 80px 20px;
+      background: #1c1c1c; /* dark grey background */
+      border-radius: 12px;
+      margin: 40px auto;
+    }
+
+     /* Navbar hover animation */
+    nav.navbar a.nav-link,
+    nav.navbar .navbar-brand {
+      color: #fff;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+
+    /* underline effect for both nav links & brand */
+    nav.navbar a.nav-link::after,
+    nav.navbar .navbar-brand::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0%;
+      height: 2px;
+      background-color: #f39c12;
+      transition: width 0.3s ease;
+    }
+
+    /* hover color + underline */
+    nav.navbar a.nav-link:hover,
+    nav.navbar .navbar-brand:hover {
+      color: #f39c12;
+    }
+
+    nav.navbar a.nav-link:hover::after,
+    nav.navbar .navbar-brand:hover::after {
+      width: 100%;
+    }
+
+    /* Dropdown styling */
+    .navbar .dropdown-menu {
+      background-color: #d9d9d9;   /* grey background */
+      border-radius: 8px;          /* rounded corners */
+      border: none;                /* remove border */
+      padding: 8px 0;
+      transition: background-color 0.5s ease;
+    }
+
+    .navbar .dropdown-menu .dropdown-item {
+      color: #000;                 /* black text */
+      font-weight: 500;
+      padding: 10px 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .navbar .dropdown-menu .dropdown-item:hover {
+      background-color: #f39c12;   /* orange highlight */
+      color: #fff;                 /* white text */
+    }
+
+    /* Dish container and images */
+    .food-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .dish {
+      width: 22%;
+      text-align: center;
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .dish img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      min-width: 120px;
+      margin-top: 10px;
+      align-self: center;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    /* Map container */
+    #map-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+    #map-container iframe {
+      width: 600px;
+      height: 450px;
+      border: 0;
+      border-radius: 8px;
+    }
+  </style>
+ <style>
+.hero-header {
+  background: linear-gradient(135deg, #ff4dd5, hwb(308 34% 0%)); /* two-tone gradient */
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+  border-radius: 0 0 30px 30px; /* curved bottom */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.hero-header h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.hero-header p {
+  font-size: 1.3rem;
+  font-weight: 300;
+}
+</style>
+</head>
+<body>
+
+ <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <i class="bi bi-shop me-2"></i>
+        <span class="text-warning">Kampar Street Food</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link active mx-2" href="home.html"><i class="bi bi-house-door"></i> Home</a></li>
+          <li class="nav-item dropdown mx-2">
+            <a class="nav-link dropdown-toggle" href="#" id="foodsDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-egg-fried"></i> Foods
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="cuisine.html">Cuisine</a></li>
+              <li><a class="dropdown-item" href="western.html">Western</a></li>
+              <li><a class="dropdown-item" href="desserts.html">Desserts</a></li>
+              <li><a class="dropdown-item" href="drinks.html">Drinks</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link mx-2" href="AboutUs.html"><i class="bi bi-people"></i> About Us</a></li>
+          <li class="nav-item"><a class="nav-link mx-2" href="Blog.html"><i class="bi bi-journal-text"></i> Blogs</a></li>
+          <li class="nav-item"><a class="nav-link mx-2" href="ContactUs.html"><i class="bi bi-envelope"></i> Contact Us</a></li>
+          <!-- Google Translate Widget -->
+          <li class="nav-item mx-2 d-flex align-items-center">
+            <div id="google_translate_element" class="translate-wrapper"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+<header class="hero-header">
+  <h1>Explore Kampar Street Food</h1>
+  <p>Discover the rich and diverse flavors of Kampar's Cuisine food scene.</p>
+ </header>
+
+  <p> </p>
+  <section id="Cuisine">
+     <div class="food-container">
+       <div class="dish">
+        <img src="Nasi Lemak Karim.webp" alt="Nasi Lemak" />
+        <h3>Nasi Lemak</h3>
+        <p>A fragrant rice dish cooked in coconut milk, typically served with sambal, fried anchovies, and a hard-boiled egg.</p>
+        <button onclick="showMap('Restoran Karim', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15810.123456789!2d101.1527359!3d4.3363097!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cae2c8363220dd%3A0x48c3f6de50442c5e!2sRestoran%20Karim!5e0!3m2!1sen!2smy!4v1692700000000')">View Location</button>
+       </div>
+      <div class="dish">
+        <img src="Roti Canai.jpg" alt="Roti Canai" />
+        <h3>Roti Canai</h3>
+        <p>A popular, pan-fried flatbread, typically associated with Malaysia, but with roots in India.</p>
+        <button onclick="showMap('Haji Ghany', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1979.1234567890123!2d101.1461015!3d4.3278653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cae2bba20a895d%3A0x9cce2a1843d3f42f!2sTaman%20Bandar%20Baru!5e0!3m2!1sen!2smy!4v1692700000000')">View Location</button>
+      </div>
+      <div class="dish">
+        <img src="Char-Kway-Teow.webp" alt="Char Kway Teow" />
+        <h3>Char Kway Teow</h3>
+        <p>Stir-fried flat rice noodles with prawns, eggs, bean sprouts, and Chinese sausage, cooked in a wok over high heat.</p>
+        <button onclick="showMap('Banian Food Court', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1981.8775432939457!2d101.14240031602315!3d4.328646157463743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cb0380828cfaef%3A0x573614f702887f1a!2sBanian%20Food%20Court%20(%E9%BB%91%E9%BB%84)!5e0!3m2!1sen!2smy!4v1692700000000')">View Location</button>
+      </div>
+      <div class="dish">
+        <img src="asam-laksa.jpg" alt="Assam Laksa" />
+        <h3>Assam Laksa</h3>
+        <p>A tangy and spicy noodle soup made with tamarind-based broth, mackerel fish, and thick rice noodles.</p>
+        <button onclick="showMap('Laksa Sanggul Kampar', 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15810.123456789012!2d101.1530955!3d4.309285!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31caeb6fab33ffff%3A0x8c0d0a4758c78593!2sKedai%20No.%206%2C%20Jalan%20Idris%2C%20Pekan%20Kampar%2C%2031900%20Kampar%2C%20Perak!5e0!3m2!1sen!2smy!4v1692700000000')">View Location</button>
+      </div>
+    </div>
+    
+    <!-- Single map container that updates -->
+    <div id="map-container">
+      <h2 id="map-title">Select a dish to see location</h2>
+      <iframe
+        id="map-frame"
+        src=""
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+
+  </section>
+
+  <script>
+    function showMap(title, src) {
+      document.getElementById('map-title').textContent = 'Location: ' + title;
+      const iframe = document.getElementById('map-frame');
+      iframe.src = src;
+      iframe.width = '600';
+      iframe.height = '450';
+      iframe.frameBorder = '0';
+      iframe.style.border = '0';
+    }
+  </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

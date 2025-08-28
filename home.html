@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kampar Street Food</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+  <!-- Icons + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    html {
+      scroll-behavior: smooth; /* Smooth scroll for better UX */
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #f0f0f0;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: bold;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    }
+
+    .section {
+      padding: 80px 20px;
+      background: #1c1c1c; /* dark grey background */
+      border-radius: 12px;
+      margin: 40px auto;
+    }
+    .section h2 {
+      color: #ff9800;
+    }
+    .section img {
+      border-radius: 12px;
+      max-width: 100%;
+      height: auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    }
+
+    .video-row {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding: 20px;
+    }
+    .video-row video {
+      flex: 0 0 auto;
+      width: 400px;
+      border-radius: 10px;
+    }
+
+    footer {
+      background: #000;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+    footer a {
+      color: #f39c12;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Google Translate responsiveness */
+    .translate-wrapper {
+      display: inline-block;
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+    iframe.goog-te-menu-frame {
+      max-width: 100% !important;
+      overflow-x: auto !important;
+    }
+    @media (max-width: 576px) {
+      .translate-wrapper {
+        display: block;
+        width: 100%;
+        margin-top: 5px;
+      }
+    }
+
+    /* Navbar hover animation */
+    nav.navbar a.nav-link,
+    nav.navbar .navbar-brand {
+      color: #fff;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+
+    /* underline effect for both nav links & brand */
+    nav.navbar a.nav-link::after,
+    nav.navbar .navbar-brand::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0%;
+      height: 2px;
+      background-color: #f39c12;
+      transition: width 0.3s ease;
+    }
+
+    /* hover color + underline */
+    nav.navbar a.nav-link:hover,
+    nav.navbar .navbar-brand:hover {
+      color: #f39c12;
+    }
+
+    nav.navbar a.nav-link:hover::after,
+    nav.navbar .navbar-brand:hover::after {
+      width: 100%;
+    }
+
+    /* Dropdown styling */
+    .navbar .dropdown-menu {
+      background-color: #d9d9d9;   /* grey background */
+      border-radius: 8px;          /* rounded corners */
+      border: none;                /* remove border */
+      padding: 8px 0;
+      transition: background-color 0.5s ease;
+    }
+
+    .navbar .dropdown-menu .dropdown-item {
+      color: #000;                 /* black text */
+      font-weight: 500;
+      padding: 10px 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .navbar .dropdown-menu .dropdown-item:hover {
+      background-color: #f39c12;   /* orange highlight */
+      color: #fff;                 /* white text */
+    }
+    
+    /* Ensure images scale nicely */
+    .section img {
+      width: 100%;
+      max-height: 350px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    /* Add spacing between stacked items on small screens */
+    .section .col-md-6 {
+      margin-bottom: 20px;
+    }
+    @media (min-width: 768px) {
+      .section .col-md-6 {
+        margin-bottom: 0;
+      }
+    }
+
+
+
+/*Video section row */
+.video-carousel-wrapper {
+position: relative;
+}
+
+.video-row {
+  scroll-behavior: smooth;
+  padding: 10px 0;
+}
+
+.video-row iframe {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+  flex: 0 0 auto;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 152, 0, 0.8);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+  transition: background 0.3s;
+}
+
+.carousel-btn:hover {
+  background-color: #f39c12;
+}
+
+.left-btn {
+  left: -20px; /* adjust based on your layout */
+}
+
+.right-btn {
+  right: -20px; /* adjust based on your layout */
+}
+
+  </style>
+</head>
+<body>
+
+ <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <i class="bi bi-shop me-2"></i>
+      <span class="text-warning">Kampar Street Food</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item">
+          <a class="nav-link active mx-2" aria-current="page" href="home.html"><i class="bi bi-house-door"></i> Home</a>
+        </li>
+
+        <!-- Dropdown for Foods -->
+        <li class="nav-item dropdown mx-2">
+          <a class="nav-link dropdown-toggle" href="#" id="foodsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-egg-fried"></i> Foods
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="foodsDropdown">
+            <li><a class="dropdown-item" href="cuisine.html">Cuisine</a></li>
+            <li><a class="dropdown-item" href="western.html">Western</a></li>
+            <li><a class="dropdown-item" href="desserts.html">Desserts</a></li>
+            <li><a class="dropdown-item" href="drinks.html">Drinks</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link mx-2" href="AboutUs.html"><i class="bi bi-people"></i> About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" href="Blog.html"><i class="bi bi-journal-text"></i> Blogs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" href="ContactUs.html"><i class="bi bi-envelope"></i> Contact Us</a>
+        </li>
+
+        <!-- Google Translate Widget -->
+        <li class="nav-item mx-2 d-flex align-items-center">
+          <div id="google_translate_element" class="translate-wrapper"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div data-aos="zoom-in">
+    <h1>Welcome to Kampar Street Food</h1>
+    <p class="lead">Discover the authentic taste of Kampar.</p>
+    <a href="#home" class="btn btn-warning btn-lg mt-3">Explore</a>
+  </div>
+</section>
+
+
+<!-- Food Section -->
+<section id="food" class="section container" data-aos="fade-up">
+  <div class="row align-items-center">
+    <div class="col-md-6 mb-4 mb-md-0 text-center" data-aos="fade-right">
+      <video class="w-100 rounded shadow" autoplay muted loop playsinline>
+        <source src="H_2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="col-md-6 d-flex flex-column justify-content-center text-center text-md-start" data-aos="fade-left">
+      <h2 class="mb-3">Food</h2>
+      <p class="mb-4">Discover mouth-watering street food such as laksa, nasi lemak, rojak, and many more. Every dish tells a story of Kampar’s food heritage.</p>
+      <a href="cuisine.html" class="btn btn-warning px-4 py-2">Explore Now</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- About Section -->
+<section id="about" class="section container" data-aos="fade-up">
+  <div class="row align-items-center flex-md-row-reverse">
+    <div class="col-md-6 mb-4 mb-md-0 text-center" data-aos="fade-left">
+      <video class="w-100 rounded shadow" autoplay muted loop playsinline>
+        <source src="H_3.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="col-md-6 d-flex flex-column justify-content-center text-center text-md-start" data-aos="fade-right">
+      <h2 class="mb-3">About Us</h2>
+      <p class="mb-4">Our street food culture is rich in history and influenced by many generations. We pride ourselves in serving authentic flavors to locals and tourists alike.</p>
+      <a href="AboutUs.html" class="btn btn-warning px-4 py-2">Learn More</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- Blogs Section -->
+<section id="blogs" class="section container" data-aos="fade-up">
+  <div class="row align-items-center">
+    <div class="col-md-6 mb-4 mb-md-0 text-center" data-aos="fade-right">
+      <video class="w-100 rounded shadow" autoplay muted loop playsinline>
+        <source src="B_H.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="col-md-6 d-flex flex-column justify-content-center text-center text-md-start" data-aos="fade-left">
+      <h2 class="mb-3">Blogs</h2>
+      <p class="mb-4">Stay updated with our latest stories and articles! Learn more about Kampar's street food culture, chef tips, recipes, and the experiences of our visitors.</p>
+      <a href="Blog.html" class="btn btn-warning px-4 py-2">Read More</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- Contact Section -->
+<section id="contact" class="section container" data-aos="fade-up">
+  <div class="row align-items-center flex-md-row-reverse">
+    <div class="col-md-6 mb-4 mb-md-0 text-center" data-aos="fade-left">
+      <video class="w-100 rounded shadow" autoplay muted loop playsinline>
+        <source src="H_4.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="col-md-6 d-flex flex-column justify-content-center text-center text-md-start" data-aos="fade-right">
+      <h2 class="mb-3">Contact Us</h2>
+      <p class="mb-4">Get in touch with us to know more about Kampar Street Food or to book your next food tour adventure!</p>
+      <a href="ContactUs.html" class="btn btn-warning px-4 py-2">Know More</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- Video Section -->
+<section id="videos" class="section container text-center" data-aos="fade-up">
+  <h2 class="mb-4 text-warning">Discover Kampar Street Food</h2>
+
+  <div class="video-carousel-wrapper position-relative">
+    <!-- Left Button -->
+    <button class="carousel-btn left-btn" onclick="scrollVideos(-1)">
+      &#10094;
+    </button>
+
+    <!-- Video Row -->
+    <div class="video-row d-flex gap-4 overflow-hidden" id="videoRow">
+      <!-- Existing Videos -->
+      <iframe width="320" height="180" src="https://www.youtube.com/embed/RfIvO-DVjAQ" title="Kampar Street Food Tour" frameborder="0" allowfullscreen></iframe>
+      <iframe width="320" height="180" src="https://www.youtube.com/embed/48igkEU3Cdc" title="Kampar Charcoal Claypot Chicken Rice" frameborder="0" allowfullscreen></iframe>
+      <iframe width="320" height="180" src="https://www.youtube.com/embed/yy83GEKVq_U" title="Kampar Food Tour" frameborder="0" allowfullscreen></iframe>
+      <iframe width="320" height="180" src="https://www.youtube.com/embed/SBZQ4-ck6v0" title="Kampar & Gopeng Food Tour" frameborder="0" allowfullscreen></iframe>
+      <iframe width="320" height="180" src="https://www.youtube.com/embed/XuUhyRpmKUQ" title="Malaysian Food at Kampar Restaurant" frameborder="0" allowfullscreen></iframe>
+      <iframe width="320" height="180" src="https://www.youtube.com/embed/lZ0uDKIzg2Q" title="Exploring Kampar Local Food Part 1" frameborder="0" allowfullscreen></iframe>
+      <iframe width="320" height="180" src="https://www.youtube.com/embed/PDr8Kdeknyc" title="Kampar: Our Ultimate Food Haven!" frameborder="0" allowfullscreen></iframe>
+      <iframe width="320" height="180" src="https://www.youtube.com/embed/Q6f7jf2WgXI" title="Malaysia Morning Food Heaven at Kampar" frameborder="0" allowfullscreen></iframe>
+      <iframe width="320" height="180" src="https://www.youtube.com/embed/g3RxmwV1N8A" title="Kampar's Apam Balik" frameborder="0" allowfullscreen></iframe>
+      <iframe width="320" height="180" src="https://www.youtube.com/embed/OzZZ-dPXwbw" title="Kampar Best Foodie Haunts" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <!-- Right Button -->
+    <button class="carousel-btn right-btn" onclick="scrollVideos(1)">
+      &#10095;
+    </button>
+  </div>
+</section>
+
+
+
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 Kampar Street Food. All rights reserved.</p>
+  <p>
+    Follow us on
+    <a href="#">Facebook</a> |
+    <a href="#">Instagram</a> |
+    <a href="#">Twitter</a>
+  </p>
+</footer>
+
+<!-- Bootstrap + AOS Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1200,
+    once: false
+  });
+</script>
+
+<!-- Scroll-based Dropdown Animation -->
+<script>
+const sections = document.querySelectorAll('section');
+const dropdown = document.querySelector('.navbar .dropdown-menu');
+
+window.addEventListener('scroll', () => {
+  let currentSection = '';
+
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 100; // offset for navbar height
+    if (window.scrollY >= sectionTop) {
+      currentSection = section.getAttribute('id');
+    }
+  });
+
+  switch(currentSection) {
+    case 'food':
+      dropdown.style.backgroundColor = '#a6a6a6';
+      break;
+    case 'foodDesign':
+      dropdown.style.backgroundColor = '#999999';
+      break;
+    case 'desserts':
+      dropdown.style.backgroundColor = '#808080';
+      break;
+    case 'drinks':
+      dropdown.style.backgroundColor = '#666666';
+      break;
+    default:
+      dropdown.style.backgroundColor = '#d9d9d9';
+  }
+});
+</script>
+
+<!-- Google Translate -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement(
+    {pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE},
+    'google_translate_element'
+  );
+}
+
+function scrollVideos(direction) {
+  const videoRow = document.getElementById('videoRow');
+  const scrollAmount = 340; // width of video + gap
+  videoRow.scrollBy({
+    left: direction * scrollAmount,
+    behavior: 'smooth'
+  });
+}
+
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

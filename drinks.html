@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+  <!-- Icons + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    html {
+      scroll-behavior: smooth; /* Smooth scroll for better UX */
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #f0f0f0;
+    }
+   .section {
+      padding: 80px 20px;
+      background: #1c1c1c; /* dark grey background */
+      border-radius: 12px;
+      margin: 40px auto;
+    }
+
+     /* Navbar hover animation */
+    nav.navbar a.nav-link,
+    nav.navbar .navbar-brand {
+      color: #fff;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+
+    /* underline effect for both nav links & brand */
+    nav.navbar a.nav-link::after,
+    nav.navbar .navbar-brand::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0%;
+      height: 2px;
+      background-color: #f39c12;
+      transition: width 0.3s ease;
+    }
+
+    /* hover color + underline */
+    nav.navbar a.nav-link:hover,
+    nav.navbar .navbar-brand:hover {
+      color: #f39c12;
+    }
+
+    nav.navbar a.nav-link:hover::after,
+    nav.navbar .navbar-brand:hover::after {
+      width: 100%;
+    }
+
+    /* Dropdown styling */
+    .navbar .dropdown-menu {
+      background-color: #d9d9d9;   /* grey background */
+      border-radius: 8px;          /* rounded corners */
+      border: none;                /* remove border */
+      padding: 8px 0;
+      transition: background-color 0.5s ease;
+    }
+
+    .navbar .dropdown-menu .dropdown-item {
+      color: #000;                 /* black text */
+      font-weight: 500;
+      padding: 10px 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .navbar .dropdown-menu .dropdown-item:hover {
+      background-color: #f39c12;   /* orange highlight */
+      color: #fff;                 /* white text */
+    }
+
+    /* Dish container and images */
+    .food-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .dish {
+      width: 22%;
+      text-align: center;
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .dish img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      min-width: 120px;
+      margin-top: 10px;
+      align-self: center;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    /* Map container */
+    #map-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+    #map-container iframe {
+      width: 600px;
+      height: 450px;
+      border: 0;
+      border-radius: 8px;
+    }
+  </style>
+ <style>
+.hero-header {
+  background: linear-gradient(135deg, #4d74ff, #5a57ff); /* two-tone gradient */
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+  border-radius: 0 0 30px 30px; /* curved bottom */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.hero-header h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.hero-header p {
+  font-size: 1.3rem;
+  font-weight: 300;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <i class="bi bi-shop me-2"></i>
+        <span class="text-warning">Kampar Street Food</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link active mx-2" href="home.html"><i class="bi bi-house-door"></i> Home</a></li>
+          <li class="nav-item dropdown mx-2">
+            <a class="nav-link dropdown-toggle" href="#" id="foodsDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-egg-fried"></i> Foods
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="cuisine.html">Cuisine</a></li>
+              <li><a class="dropdown-item" href="western.html">Western</a></li>
+              <li><a class="dropdown-item" href="desserts.html">Desserts</a></li>
+              <li><a class="dropdown-item" href="drinks.html">Drinks</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link mx-2" href="AboutUs.html"><i class="bi bi-people"></i> About Us</a></li>
+          <li class="nav-item"><a class="nav-link mx-2" href="Blog.html"><i class="bi bi-journal-text"></i> Blogs</a></li>
+          <li class="nav-item"><a class="nav-link mx-2" href="ContactUs.html"><i class="bi bi-envelope"></i> Contact Us</a></li>
+          <!-- Google Translate Widget -->
+          <li class="nav-item mx-2 d-flex align-items-center">
+            <div id="google_translate_element" class="translate-wrapper"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<header class="hero-header">
+  <h1>Explore Kampar Street Food</h1>
+  <p>Discover the rich and diverse flavors of Kampar's Drinks scene.</p>
+</header>
+
+  <p> </p>
+     <section id="drink">
+    <p> </p>
+    <div class="food-container">
+      <div class="dish">
+        <img src="Dr1.png" alt="Herbal tea" />
+        <h3>Herbal tea</h3>
+        <p>A soothing traditional brew made from natural herbs, often enjoyed for its cooling and calming properties.</p>
+        <button onclick="showMap('Chagee', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.01826520358!2d101.1469573!3d4.3304424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cae307921a9ff1%3A0xd59531da0add615c!2sChagee!5e0!3m2!1sen!2smy!4v1692619999999')">View Location</button>
+      </div>
+      <div class="dish">
+        <img src="Dr2.png" alt="Juices Drinks" />
+        <h3>Juices Drinks</h3>
+        <p>Freshly squeezed fruit juices bursting with tropical flavors, perfect for a refreshing boost.</p>
+        <button onclick="showMap('S&J Group Food Beverage', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.0200001234567!2d101.1468040!3d4.3300395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cae2bbd78c5bbb%3A0x427a445d6817a8de!2sS%26J%20Group%20Food%20Beverage!5e0!3m2!1sen!2smy!4v1692619999988')">View Location</button>
+      </div>
+      <div class="dish">
+        <img src="Dr3.png" alt="Alcoholic Drinks" />
+        <h3>Alcoholic Drinks</h3>
+        <p>From local beers to creative cocktails, these beverages bring a bold kick to Malaysia’s vibrant nightlife.</p>
+        <button onclick="showMap('X Space Bar', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.030123456789!2d101.1437167!3d4.3282122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cae3aa2e87c103%3A0x498f5401e8e4c8de!2sX%20Space%20Bar!5e0!3m2!1sen!2smy!4v1692619999977')">View Location</button>
+      </div>
+      <div class="dish">
+        <img src="Dr4.png" alt="Hot Drinks" />
+        <h3>Hot Drinks</h3>
+        <p>Comforting choices like coffee and milk tea, served warm to start the day or unwind in the evening.</p>
+        <button onclick="showMap('Buddies Cafe And Bar', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3975.0256781234567!2d101.1443515!3d4.3290849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cae2bc0b9a258b%3A0x8b6c4fc3ddee2eea!2sBuddies%20Cafe%20And%20Bar!5e0!3m2!1sen!2smy!4v1692619999966')">View Location</button>
+      </div>
+    </div>
+    
+    <!-- Single map container that updates -->
+    <div id="map-container">
+      <h2 id="map-title">Select a dish to see location</h2>
+      <iframe
+        id="map-frame"
+        src=""
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+
+  </section>
+
+  <script>
+    function showMap(title, src) {
+      document.getElementById('map-title').textContent = 'Location: ' + title;
+      const iframe = document.getElementById('map-frame');
+      iframe.src = src;
+      iframe.width = '600';
+      iframe.height = '450';
+      iframe.frameBorder = '0';
+      iframe.style.border = '0';
+    }
+  </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

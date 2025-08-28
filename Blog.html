@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Kampar Street Food</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- AOS CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+  <!-- Icons + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --brand: #d35400;
+      --brand-2: #f39c12;
+      --ink: #2c3e50;
+      --paper: #fffaf0;
+    }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Navbar styling */
+    nav.navbar {
+      background-color: var(--brand);
+    }
+    nav.navbar a.nav-link,
+    nav.navbar .navbar-brand {
+      color: #fff;
+      font-weight: 600;
+      position: relative;
+      transition: color .3s ease;
+      text-decoration: none;
+    }
+    nav.navbar a.nav-link:hover,
+    nav.navbar .navbar-brand:hover {
+      color: var(--brand-2);
+    }
+
+    /* Hero section with video background */
+    .hero {
+      position: relative;
+      min-height: 42vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,.35);
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .hero .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.35);
+      z-index: 1;
+    }
+    .hero .content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Blog cards */
+    .section-title {
+      color: var(--brand);
+      font-weight: 700;
+    }
+    .post-card {
+      transition: transform .18s ease, box-shadow .18s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,.12);
+    }
+    .post-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-top-left-radius: .5rem;
+      border-top-right-radius: .5rem;
+    }
+    .post-meta {
+      font-size: .9rem;
+      color: #6c757d;
+    }
+    .badge-cat {
+      background: rgba(243,156,18,.12);
+      color: var(--brand);
+      border: 1px solid rgba(243,156,18,.35);
+    }
+    .post-card .btn {
+      width: 100%;
+      margin-top: auto;
+    }
+
+    /* Sidebar */
+    .sidebar-sticky {
+      position: sticky;
+      top: 90px;
+    }
+    .list-cats .list-group-item {
+      cursor: pointer;
+      border: none;
+    }
+    .list-cats .list-group-item.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+
+    /* Pagination */
+    .page-link {
+      color: var(--brand);
+    }
+    .page-item.active .page-link {
+      background: var(--brand);
+      border-color: var(--brand);
+    }
+
+    /* Footer */
+    footer {
+      background: #2c3e50;
+      color: #ecf0f1;
+    }
+    footer a {
+      color: var(--brand-2);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Navbar underline hover animation */
+    nav.navbar a.nav-link::after,
+    nav.navbar .navbar-brand::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0%;
+      height: 2px;
+      background-color: #f39c12;
+      transition: width 0.3s ease;
+    }
+    nav.navbar a.nav-link:hover::after,
+    nav.navbar .navbar-brand:hover::after {
+      width: 100%;
+    }
+
+    /* Dropdown menu */
+    .navbar .dropdown-menu {
+      background-color: #d9d9d9;
+      border-radius: 8px;
+      border: none;
+      padding: 8px 0;
+      transition: background-color 0.5s ease;
+    }
+    .navbar .dropdown-menu .dropdown-item {
+      color: #000;
+      font-weight: 500;
+      padding: 10px 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .navbar .dropdown-menu .dropdown-item:hover {
+      background-color: #f39c12;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <i class="bi bi-shop me-2"></i>
+        <span class="text-warning">Kampar Street Food</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link active mx-2" href="home.html"><i class="bi bi-house-door"></i> Home</a></li>
+          <li class="nav-item dropdown mx-2">
+            <a class="nav-link dropdown-toggle" href="#" id="foodsDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-egg-fried"></i> Foods
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="cuisine.html">Cuisine</a></li>
+              <li><a class="dropdown-item" href="western.html">Western</a></li>
+              <li><a class="dropdown-item" href="desserts.html">Desserts</a></li>
+              <li><a class="dropdown-item" href="drinks.html">Drinks</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link mx-2" href="AboutUs.html"><i class="bi bi-people"></i> About Us</a></li>
+          <li class="nav-item"><a class="nav-link mx-2" href="Blog.html"><i class="bi bi-journal-text"></i> Blogs</a></li>
+          <li class="nav-item"><a class="nav-link mx-2" href="ContactUs.html"><i class="bi bi-envelope"></i> Contact Us</a></li>
+          <!-- Google Translate Widget -->
+          <li class="nav-item mx-2 d-flex align-items-center">
+            <div id="google_translate_element" class="translate-wrapper"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section (Blog intro with video background) -->
+  <header class="hero">
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="B_H.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="overlay"></div>
+    <div class="content py-5">
+      <h1 class="display-5 fw-bold">Our Blog</h1>
+      <p class="lead mb-0">Stories, guides, and tasty tips from Kampar's streets.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container my-5">
+    <div class="row g-4">
+      <!-- Posts Section -->
+      <div class="col-lg-8">
+        <!-- Search + Category Filters -->
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+          <!-- Search box -->
+          <div class="input-group">
+            <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+            <input id="searchInput" type="search" class="form-control" placeholder="Search posts..." />
+          </div>
+
+          <!-- Filter buttons -->
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-sm btn-outline-warning filter-chip active" data-cat="all">All</button>
+            <button class="btn btn-sm btn-outline-warning filter-chip" data-cat="food">Food</button>
+            <button class="btn btn-sm btn-outline-warning filter-chip" data-cat="culture">Culture</button>
+            <button class="btn btn-sm btn-outline-warning filter-chip" data-cat="guides">Guides</button>
+            <button class="btn btn-sm btn-outline-warning filter-chip" data-cat="events">Events</button>
+          </div>
+        </div>
+
+     
+
+
+<!-- Posts Grid (20 Blog Posts) -->
+<div id="postsGrid" class="row g-4">
+
+  <!-- Existing 7 posts -->
+  <!-- Post 1 -->
+  <div class="col-md-6 col-lg-4 post" data-title="20 Must-try Restaurants and Street Food in Kampar" data-excerpt="From local eateries to street bites" data-tags="food street" data-cat="food" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="B_P1.png" alt="Kampar Food">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">20 Must-try Restaurants and Street Food in Kampar</h5>
+        <p class="text-muted small">Last updated: Dec 7, 2024</p>
+        <a href="https://travelwithlens.com/food-in-kampar/" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 2 -->
+  <div class="col-md-6 col-lg-4 post" data-title="Best Eats in Kampar" data-excerpt="Local favourite dishes and must-try snacks" data-tags="food" data-cat="food" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=80" alt="Best Eats">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">Best Eats in Kampar</h5>
+        <p class="text-muted small">Explore local favourite dishes</p>
+        <a href="https://chiefeater.com/best-eats-in-kampar/" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 3 -->
+  <div class="col-md-6 col-lg-4 post" data-title="Best Breakfast @ Medan Selera Kampar" data-excerpt="Morning bites you cannot miss" data-tags="food breakfast" data-cat="food" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" alt="Breakfast Kampar">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">Best Breakfast @ Medan Selera Kampar</h5>
+        <p class="text-muted small">First meal delights</p>
+        <a href="https://kampungboycitygal.com/2014/08/best-breakfast-medan-selera-kampar/" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 4 -->
+  <div class="col-md-6 col-lg-4 post" data-title="Yummy and Greater Value Street Food in Kampar, Perak" data-excerpt="Affordable street bites" data-tags="food street budget" data-cat="food" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=80" alt="Street Food">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">Yummy and Greater Value Street Food in Kampar, Perak</h5>
+        <p class="text-muted small">Affordable local bites</p>
+        <a href="https://foodiesandplaces.wordpress.com/2019/05/24/yummy-and-greater-value-street-food-in-kampar-perak/" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 5 -->
+  <div class="col-md-6 col-lg-4 post" data-title="Top 10 Best Street Food Near Kampar, Perak" data-excerpt="Must-visit stalls" data-tags="food street top10" data-cat="food" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="https://images.unsplash.com/photo-1460306855393-0410f61241c7?auto=format&fit=crop&w=1600&q=80" alt="Top 10 Street Food">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">Top 10 Best Street Food Near Kampar, Perak</h5>
+        <p class="text-muted small">Must-visit stalls</p>
+        <a href="https://www.yelp.com/search?find_desc=Street+Food&find_loc=Kampar%2C+Perak" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 6 -->
+  <div class="col-md-6 col-lg-4 post" data-title="Daytrippin': Return to Kampar" data-excerpt="Trip stories from 2006" data-tags="travel history" data-cat="guides" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="B_P6.png" alt="Daytrip Kampar">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">Daytrippin': Return to Kampar 2006</h5>
+        <p class="text-muted small">Trip stories from 2006</p>
+        <a href="https://eatingasia.typepad.com/eatingasia/2006/03/daytrippin_retu.html" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 7 -->
+  <div class="col-md-6 col-lg-4 post" data-title="Nice Food in Kampar" data-excerpt="Food memories from 2012" data-tags="food" data-cat="food" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="B_P7.png" alt="Nice Food Kampar">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">Nice Food in Kampar December 24, 2012</h5>
+        <p class="text-muted small">Food memories from 2012</p>
+        <a href="https://bettyandlingshing.blogspot.com/2012/12/nice-food-in-kampar.html" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Posts (8 to 20) -->
+  <div class="col-md-6 col-lg-4 post" data-title="A Day in Kampar: A Photo Story" data-excerpt="Photo essay capturing Kampar markets and streets" data-tags="food culture travel" data-cat="culture" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="B_P8.png" alt="Photo Story Kampar">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">A Day in Kampar: A Photo Story</h5>
+        <p class="text-muted small">Explore Kampar’s streets through vivid photography</p>
+        <a href="https://brokenbootstravel.com/a-day-in-kampar-a-photo-story/?utm_source=chatgpt.com" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 9 -->
+  <div class="col-md-6 col-lg-4 post" data-title="Gopeng – Kampar – Tg Tualang Road Trip" data-excerpt="Two-day food trail through Kampar and nearby towns" data-tags="food travel" data-cat="guides" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="B_P9.png" alt="Road Trip Kampar">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">Gopeng – Kampar – Tg Tualang Road Trip</h5>
+        <p class="text-muted small">Food adventure and scenic stops along the route</p>
+        <a href="https://rickitraveldiary.blogspot.com/2024/11/gopeng-kampar-tg-tualang-go-go-perak.html?utm_source=chatgpt.com" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 10 -->
+  <div class="col-md-6 col-lg-4 post" data-title="Char Siew Buns @ Jia Kampar Restaurant" data-excerpt="Nostalgic take on Kampar's famous BBQ pork buns" data-tags="food" data-cat="food" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="B_P10.png" alt="Char Siew Buns">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">Char Siew Buns @ Jia Kampar Restaurant</h5>
+        <p class="text-muted small">Kampar’s favorite BBQ pork buns</p>
+        <a href="https://jotarofootsteps.blogspot.com/2014/03/yummy-char-siew-buns-jia-kampar.html?utm_source=chatgpt.com" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 11 -->
+  <div class="col-md-6 col-lg-4 post" data-title="Kampar Delights @ Kam Ling Restaurant" data-excerpt="Claypot chicken rice, curry noodles, coconut ice cream" data-tags="food dessert" data-cat="food" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1200&q=80" alt="Kam Ling Restaurant">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">Kampar Delights @ Kam Ling Restaurant</h5>
+        <p class="text-muted small">Popular dishes loved by locals</p>
+        <a href="https://jotarofootsteps.blogspot.com/2014/01/yummy-kampar-delights-kam-ling.html?utm_source=chatgpt.com" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 12 -->
+  <div class="col-md-6 col-lg-4 post" data-title="Tour de Kampar 2020: Cycling & Prawns" data-excerpt="Cycling adventure with stops for local prawns" data-tags="food travel" data-cat="guides" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="B_P12.png" alt="Tour de Kampar">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">Tour de Kampar 2020: Cycling & Prawns</h5>
+        <p class="text-muted small">Two-day local food and cycling adventure</p>
+        <a href="https://ahpekbiker.blogspot.com/2020/08/perak-tour-de-kampar-2020.html?utm_source=chatgpt.com" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post 13 -->
+  <div class="col-md-6 col-lg-4 post" data-title="Kampar Food Court Favourites" data-excerpt="See Hum Chow Fun & local nostalgia" data-tags="food" data-cat="food" data-aos="fade-up">
+    <div class="card post-card h-100 shadow-sm">
+      <img class="post-thumb" src="B_P13.png" alt="Kampar Food Court">
+      <div class="card-body d-flex flex-column h-100">
+        <h5 class="card-title">Kampar Food Court Favourites</h5>
+        <p class="text-muted small">Local food with nostalgic charm</p>
+        <a href="https://www.mweats.com/2012/08/26/kampar-food-court-kampar-perak-malaysia/?utm_source=chatgpt.com" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+<!-- Post 14 -->
+<div class="col-md-6 col-lg-4 post" data-title="Kampar Street Food Stories" data-excerpt="Local vendors share recipes and traditions" data-tags="food culture" data-cat="culture" data-aos="fade-up">
+  <div class="card post-card h-100 shadow-sm">
+    <img class="post-thumb" src="B_P14.png" alt="Kampar Street Food Stories">
+    <div class="card-body d-flex flex-column h-100">
+      <h5 class="card-title">Kampar Street Food Stories</h5>
+      <p class="text-muted small">Interviews and stories from local vendors</p>
+      <a href="https://eatingasia.typepad.com/eatingasia/2006/01/daytrippin_mala.html" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+    </div>
+  </div>
+</div>
+
+<!-- Post 15 -->
+<div class="col-md-6 col-lg-4 post" data-title="Wai Kee Sei Wu Lai Fan (Laifun Curry)" data-excerpt="Experience one of the best laifun dishes in Kampar with a unique curry sans coconut milk." data-tags="food chinese hawker" data-cat="food" data-aos="fade-up">
+  <div class="card post-card h-100 shadow-sm">
+    <img class="post-thumb" src="B_P15.png" alt="Wai Kee Sei Wu Lai Fan">
+    <div class="card-body d-flex flex-column h-100">
+      <h5 class="card-title">Wai Kee Sei Wu Lai Fan</h5>
+      <p class="text-muted small">Tucked next to a basketball court, they serve flavorful homemade laifun, curry or clear-style, for ~RM13—affordable & delicious.</p>
+      <a href="https://wanderlog.com/place/details/5860072/%E5%A8%81%E8%AE%B0%E5%9B%9B%E4%BC%9A%E6%BF%91%E7%B2%89-wai-kee-sei-wu-lai-fan" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+    </div>
+  </div>
+</div>
+<!-- Post 16 -->
+<div class="col-md-6 col-lg-4 post" data-title="Yau Kee Restaurant (Curry Chicken Bun)" data-excerpt="Iconic curry chicken bun that locals love—nostalgic flavor alive after 20+ years." data-tags="food chinese bakery" data-cat="food" data-aos="fade-up">
+  <div class="card post-card h-100 shadow-sm">
+    <img class="post-thumb" src="B_P16.png" alt="Yau Kee Restaurant">
+    <div class="card-body d-flex flex-column h-100">
+      <h5 class="card-title">Yau Kee Restaurant</h5>
+      <p class="text-muted small">A longtime favorite for their curry chicken bun—“Same as 20 yrs back. Food still taste the same.”</p>
+      <a href="https://wanderlog.com/list/geoCategory/474655/kampar-district%E7%9A%84%E6%9C%80%E4%BD%B3%E4%BA%9A%E6%B4%B2%E7%BE%8E%E9%A3%9F" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+    </div>
+  </div>
+</div>
+<!-- Post 17 -->
+<div class="col-md-6 col-lg-4 post" data-title="Kam Ling Restaurant (Authentic Chinese Cuisine)" data-excerpt="Cozy place to savor traditional flavors of Kampar's Chinese cuisine." data-tags="food chinese dining" data-cat="food" data-aos="fade-up">
+  <div class="card post-card h-100 shadow-sm">
+    <img class="post-thumb" src="B_P17.png" alt="Kam Ling Restaurant">
+    <div class="card-body d-flex flex-column h-100">
+      <h5 class="card-title">Kam Ling Restaurant</h5>
+      <p class="text-muted small">Captures local dining essence with authentic Chinese dishes and a cozy atmosphere.</p>
+      <a href="https://wanderlog.com/place/details/2308539/kam-ling-restaurant" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+    </div>
+  </div>
+</div>
+<!-- Post 18 -->
+<div class="col-md-6 col-lg-4 post" data-title="Kampar Food Centre (Hawker Hub)" data-excerpt="Bustling hawker market offering Chinese-style breakfast & claypot chicken rice." data-tags="food hawker market" data-cat="food" data-aos="fade-up">
+  <div class="card post-card h-100 shadow-sm">
+    <img class="post-thumb" src="B_P18.png" alt="Kampar Food Centre">
+    <div class="card-body d-flex flex-column h-100">
+      <h5 class="card-title">Kampar Food Centre</h5>
+      <p class="text-muted small">A hub for Chinese hawker stalls—operating day & night, famous for claypot chicken rice and affordable food court fare.</p>
+      <a href="https://wanderlog.com/list/geoCategory/207021/where-to-eat-best-restaurants-in-kampar-district" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+    </div>
+  </div>
+</div>
+<!-- Post 19 -->
+<div class="col-md-6 col-lg-4 post" data-title="Loong Foong Kook Restaurant" data-excerpt="Known for braised pork rice, nasi lemak with sambal sotong & ayam masak merah—affordable, cozy & satisfying." data-tags="food affordable chinese" data-cat="food" data-aos="fade-up">
+  <div class="card post-card h-100 shadow-sm">
+    <img class="post-thumb" src="B_P19.png" alt="Loong Foong Kook Restaurant">
+    <div class="card-body d-flex flex-column h-100">
+      <h5 class="card-title">Loong Foong Kook</h5>
+      <p class="text-muted small">Affordable & flavorful dishes like braised pork rice, nasi lemak with ayam masak merah and sambal sotong. One of Kampar’s best for these local fares.</p>
+      <a href="https://wanderlog.com/place/details/10662550/loong-foong-kook-restaurant" target="_blank" class="btn btn-warning btn-sm">Read More</a>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+
+        <!-- Pagination -->
+        <nav class="mt-4">
+          <ul class="pagination justify-content-center" id="pager"></ul>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-4 mt-5">
+    <div class="container text-center">
+      <p class="mb-1">&copy; 2025 Kampar Street Food. All Rights Reserved.</p>
+      <p>Follow us on <a href="#">Instagram</a> and <a href="#">Facebook</a>.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS + AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    // Initialize AOS animations
+    AOS.init({ duration: 600, once: true });
+
+    const posts = [...document.querySelectorAll('.post')];
+    const pager = document.getElementById('pager');
+    const PAGE_SIZE = 6; // how many posts per page
+    let currentPage = 1;
+    const state = { q: '', cat: 'all' };
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', e => {
+      state.q = e.target.value.toLowerCase();
+      currentPage = 1;
+      render();
+    });
+
+    // Category filter buttons
+    document.querySelectorAll('.filter-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.cat = btn.dataset.cat;
+        currentPage = 1;
+        render();
+      });
+    });
+
+    // Match post to current filters (search + category)
+    function matches(post) {
+      const q = state.q;
+      const cat = state.cat;
+      const inCat = cat === 'all' || post.dataset.cat === cat;
+      const inSearch = !q || (`${post.dataset.title} ${post.dataset.excerpt} ${post.dataset.tags}`).toLowerCase().includes(q);
+      return inCat && inSearch;
+    }
+
+    // Return only posts for current page
+    function paginate(arr) {
+      return arr.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+    }
+
+    // Render posts + pagination
+    function render() {
+      const filtered = posts.filter(matches);
+      posts.forEach(p => p.style.display = 'none');
+      paginate(filtered).forEach(p => p.style.display = '');
+
+      // Setup pagination
+      const pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+      currentPage = Math.min(currentPage, pages);
+      pager.innerHTML = '';
+
+      // Previous button
+      const prevLi = document.createElement('li');
+      prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'page-link';
+      prevBtn.textContent = 'Previous';
+      prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          render();
+          window.scrollTo({ top: document.querySelector('main').offsetTop - 90, behavior: 'smooth' });
+        }
+      });
+      prevLi.appendChild(prevBtn);
+      pager.appendChild(prevLi);
+
+      // Page number buttons
+      for (let i = 1; i <= pages; i++) {
+        const li = document.createElement('li');
+        li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+        const btn = document.createElement('button');
+        btn.className = 'page-link';
+        btn.textContent = i;
+        btn.addEventListener('click', () => {
+          currentPage = i;
+          render();
+          window.scrollTo({ top: document.querySelector('main').offsetTop - 90, behavior: 'smooth' });
+        });
+        li.appendChild(btn);
+        pager.appendChild(li);
+      }
+
+      // Next button
+      const nextLi = document.createElement('li');
+      nextLi.className = `page-item ${currentPage === pages ? 'disabled' : ''}`;
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'page-link';
+      nextBtn.textContent = 'Next';
+      nextBtn.addEventListener('click', () => {
+        if (currentPage < pages) {
+          currentPage++;
+          render();
+          window.scrollTo({ top: document.querySelector('main').offsetTop - 90, behavior: 'smooth' });
+        }
+      });
+      nextLi.appendChild(nextBtn);
+      pager.appendChild(nextLi);
+    }
+
+    // Initial render
+    render();
+  </script>
+
+  <!-- Google Translate Widget -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
+        'google_translate_element'
+      );
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
+
