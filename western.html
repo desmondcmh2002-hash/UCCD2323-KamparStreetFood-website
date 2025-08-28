@@ -133,7 +133,7 @@
   </style>
  <style>
 .hero-header {
-  background: linear-gradient(135deg, #ff914d, #ff5757); /* two-tone gradient */
+  background: linear-gradient(135deg, #ff4d4d, #d43737); /* two-tone gradient */
   color: white;
   padding: 80px 20px;
   text-align: center;
@@ -153,6 +153,7 @@
 }
 </style>
 </head>
+
 <body>
  <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
@@ -173,9 +174,10 @@
         </li>
 
         <!-- Dropdown for Foods -->
-         
         <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" href="#" id="foodsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+          <a class="nav-link dropdown-toggle" href="#" id="foodsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-egg-fried"></i> Foods
+          </a>
           <ul class="dropdown-menu" aria-labelledby="foodsDropdown">
             <li><a class="dropdown-item" href="cuisine.html">Cuisine</a></li>
             <li><a class="dropdown-item" href="western.html">Western</a></li>
@@ -266,7 +268,16 @@
       iframe.style.border = '0';
     }
   </script>
+   <!-- Google Translate -->
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+      {pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE},
+      'google_translate_element'
+      );
+      }
+   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
